@@ -1,19 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
+
+final formatter = DateFormat.yMd();
 
 const  uuid = Uuid();
 
-enum Category{
-  food,
-  travel, 
-  leisure,
-  work
-};
+enum Category{food, travel, leisure, work}
 
 const categoryIcons = {
-  Category.food: '🍔',
-  Category.travel: '✈️',
-  Category.leisure: '🎉',
-  Category.work: '💼',
+  Category.food: Icons.fastfood,
+  Category.travel: Icons.flight,
+  Category.leisure: Icons.movie,
+  Category.work: Icons.work,
 };
 
 class Expense{
@@ -30,4 +29,14 @@ class Expense{
   final double amount;
   final DateTime date;
   final Category category; 
+
+  //we start the method with "get" as we transform some property
+  /* getFormattedDate(){
+    return '${date.day}/${date.month}/${date.year}';
+  } */
+
+ //we can use getter to get the formatted date
+  String get formattedDate{
+    return formatter.format(date);
+  }
 }

@@ -28,9 +28,9 @@ class ExpenseItem extends StatelessWidget{
                 between other widgets which it has been placed */
                 Row(
                   children: [
-                    const Icon(Icons.calendar_today),
+                    Icon(categoryIcons[expense.category]),
                     const SizedBox(width: 8,),
-                    Text(expense.date.toString()),
+                    Text(expense.formattedDate),
                   ],
                 ),
               ],
