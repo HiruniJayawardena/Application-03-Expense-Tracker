@@ -7,7 +7,14 @@ enum Category{
   travel, 
   leisure,
   work
-}
+};
+
+const categoryIcons = {
+  Category.food: '🍔',
+  Category.travel: '✈️',
+  Category.leisure: '🎉',
+  Category.work: '💼',
+};
 
 class Expense{
   Expense({ // we use named paramters because we don't want to remember the order of the parameters
