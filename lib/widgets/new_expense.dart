@@ -18,6 +18,9 @@ class _NewExpenseState extends State<NewExpense>{
         children: [
           TextField(
             maxLength: 50,
+            decoration: InputDecoration(
+              label: Text('Title'),
+            ),
           ),
         ]
       ),
