@@ -10,15 +10,18 @@ class NewExpense extends StatefulWidget{
 }
 
 class _NewExpenseState extends State<NewExpense>{
+  void _saveTitleInput(String inputValue){}
+
   @override
   Widget build(BuildContext context) {
-    return const Padding( 
-      padding: EdgeInsets.all(7),
+    return Padding( 
+      padding: const EdgeInsets.all(7),
       child: Column( // we don't use ListView because we don't need to scroll, generate content dynamically
         children: [
           TextField(
+            onChanged: _saveTitleInput,
             maxLength: 50,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text('Title'),
             ),
           ),
