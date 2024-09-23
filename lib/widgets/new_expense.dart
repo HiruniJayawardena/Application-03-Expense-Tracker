@@ -10,7 +10,11 @@ class NewExpense extends StatefulWidget{
 }
 
 class _NewExpenseState extends State<NewExpense>{
-  void _saveTitleInput(String inputValue){}
+  var _enteredTitle = '';
+
+  void _saveTitleInput(String inputValue){
+    _enteredTitle = inputValue;
+  }
 
   @override
   Widget build(BuildContext context) {
