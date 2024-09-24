@@ -29,7 +29,17 @@ class _NewExpenseState extends State<NewExpense>{
               label: Text('Title'),
             ),
           ),
-        ]
+          Row(
+           children: [
+            ElevatedButton(
+              onPressed: (){
+                print(_enteredTitle);
+              }, 
+              child: const Text('Save Expense'),
+            ),
+          ],
+          ),
+        ],
       ),
     );
   }
