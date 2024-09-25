@@ -1,4 +1,6 @@
+import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
+import 'package:expense_tracker/widgets/expenses.dart';
 
 class NewExpense extends StatefulWidget{
   const NewExpense({super.key});
@@ -18,17 +20,25 @@ class _NewExpenseState extends State<NewExpense>{
 
   final _titleController = TextEditingController(); 
   final _amountController = TextEditingController();
+  DateTime? _selectedDate; // ? says that the value can be the type of DateTime or can be a null
 
-  void _presentDatePicker(){
+  void _presentDatePicker() async { // we can only use async and await in future methods - this is the second way
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
 
-    showDatePicker(
+    final pickedDate = await showDatePicker(
       context: context, 
       initialDate: now,
       firstDate: firstDate, 
       lastDate: now,
     );
+    /* ).then((value){ // get hold some value or some event in the future
+    // using then is one way 
+     }); */
+
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -71,7 +81,7 @@ class _NewExpenseState extends State<NewExpense>{
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Selected date'),
+                    Text(_selectedDate == null ? 'No date selected' : formatter.format(_selectedDate!)), // we use "!" to force dart that this wont be null
                     IconButton(
                       onPressed: _presentDatePicker, 
                       icon: const Icon(
