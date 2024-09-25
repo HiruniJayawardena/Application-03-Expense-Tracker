@@ -21,6 +21,7 @@ class _NewExpenseState extends State<NewExpense>{
   final _titleController = TextEditingController(); 
   final _amountController = TextEditingController();
   DateTime? _selectedDate; // ? says that the value can be the type of DateTime or can be a null
+  Category _selectedCategory = Category.leisure;
 
   void _presentDatePicker() async { // we can only use async and await in future methods - this is the second way
     final now = DateTime.now();
@@ -95,15 +96,23 @@ class _NewExpenseState extends State<NewExpense>{
           ),
           Row(
            children: [
-            DropdownButton(
+            DropdownButton( // we can't add controller to the drop down menus
+              value: _selectedCategory,
               items: Category.values.map(
                 (category) => DropdownMenuItem(
                   value: category,
                   child: Text(
-                    category.name.toString(),
+                    category.name.toUpperCase(),
                   ),),
               ).toList(), 
-              onChanged:(value){},
+              onChanged:(value){
+                if(value == null){
+                  return;
+                }
+                setState((){
+                  _selectedCategory = value;
+                });
+              },
             ),
             TextButton(
               onPressed: (){
