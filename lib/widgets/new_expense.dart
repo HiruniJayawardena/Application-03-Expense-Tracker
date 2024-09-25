@@ -94,6 +94,7 @@ class _NewExpenseState extends State<NewExpense>{
               ),
             ],
           ),
+          const SizedBox(height: 16,),
           Row(
            children: [
             DropdownButton( // we can't add controller to the drop down menus
