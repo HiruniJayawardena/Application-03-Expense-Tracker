@@ -114,6 +114,7 @@ class _NewExpenseState extends State<NewExpense>{
                 });
               },
             ),
+            const Spacer(),
             TextButton(
               onPressed: (){
                 Navigator.pop(context);
