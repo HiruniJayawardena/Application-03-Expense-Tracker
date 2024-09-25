@@ -19,6 +19,18 @@ class _NewExpenseState extends State<NewExpense>{
   final _titleController = TextEditingController(); 
   final _amountController = TextEditingController();
 
+  void _presentDatePicker(){
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1, now.month, now.day);
+
+    showDatePicker(
+      context: context, 
+      initialDate: now,
+      firstDate: firstDate, 
+      lastDate: now,
+    );
+  }
+
   @override
   void dispose() {  // need to dispose all the text editing controllers we create, otherwise it will crash the application.
     _titleController.dispose();
@@ -60,7 +72,12 @@ class _NewExpenseState extends State<NewExpense>{
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text('Selected date'),
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.calendar_month_rounded)),
+                    IconButton(
+                      onPressed: _presentDatePicker, 
+                      icon: const Icon(
+                        Icons.calendar_month_rounded
+                      ),
+                    ),
                   ],
                 ),
               ),
