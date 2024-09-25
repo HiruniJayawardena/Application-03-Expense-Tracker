@@ -43,7 +43,9 @@ class _NewExpenseState extends State<NewExpense>{
   }
 
   void _submitExpenseData(){
-
+    if(_titleController.text.trim().isEmpty){
+      //show some error
+    }
   }
 
   @override
