@@ -42,6 +42,10 @@ class _NewExpenseState extends State<NewExpense>{
     });
   }
 
+  void _submitExpenseData(){
+
+  }
+
   @override
   void dispose() {  // need to dispose all the text editing controllers we create, otherwise it will crash the application.
     _titleController.dispose();
@@ -123,10 +127,7 @@ class _NewExpenseState extends State<NewExpense>{
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: (){
-                print(_titleController.text);
-                print(_amountController.text);
-              }, 
+              onPressed: _submitExpenseData, 
               child: const Text('Save Expense'),
             ),
           ],
