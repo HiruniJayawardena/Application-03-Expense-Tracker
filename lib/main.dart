@@ -25,6 +25,12 @@ void main() {
             vertical: 8,
           ),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(   // there is no copywith
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kDarkColorSchme.primaryContainer,
+            foregroundColor: kDarkColorSchme.onPrimaryContainer,
+          )
+        ),
       ),
       theme: ThemeData().copyWith(
         // scaffoldBackgroundColor: Color.fromARGB(255, 244, 174, 247),
