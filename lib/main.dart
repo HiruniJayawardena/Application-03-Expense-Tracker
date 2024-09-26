@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/widgets/expenses.dart';
+import 'package:flutter/services.dart';
 
 // "k" used as a convention for global variables
 var kColorScheme  = ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 96, 59, 181));
@@ -13,6 +14,11 @@ var kDarkColorSchme = ColorScheme.fromSeed(
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized(); // this make sure that locking the orientation
+  // Locking the system orientation. This adds before the run method
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((fn){
   runApp(
     MaterialApp(
       // dark theme consists dark parameters, so we don't need to add them manually
@@ -63,5 +69,7 @@ void main() {
       home: const Expenses(),
     ),
   );
+  });
+  
 }
 
