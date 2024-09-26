@@ -18,7 +18,13 @@ class ExpenseList extends StatelessWidget{
     and it is scrollable. */
     return ListView.builder(
       itemCount: expenses.length,
-      itemBuilder: (ctx, index) => ExpenseItem(expenses[index]),
+      // itemBuilder: (ctx, index) => ExpenseItem(expenses[index]),
+
+      // Here we add dismissible to make the items swipe to delete
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]), // to make sure correct data that been deleted. we use this with dissmissible
+        child: ExpenseItem(expenses[index]),
+      ),
     );
   }
 }
