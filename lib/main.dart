@@ -2,12 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/widgets/expenses.dart';
 
 // "k" used as a convention for global variables
-var kColorScheme  = ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 36, 7, 37));
+var kColorScheme  = ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 96, 59, 181));
+
+//for dark theme
+// var kDarkColorSchme = ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 36, 7, 37));
+var kDarkColorSchme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 5, 99, 125),
+);
 
 
 void main() {
   runApp(
     MaterialApp(
+      // dark theme consists dark parameters, so we don't need to add them manually
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kDarkColorSchme,
+        cardTheme: const CardTheme().copyWith(
+          color : kDarkColorSchme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+        ),
+      ),
       theme: ThemeData().copyWith(
         // scaffoldBackgroundColor: Color.fromARGB(255, 244, 174, 247),
         colorScheme: kColorScheme,
@@ -35,6 +53,7 @@ void main() {
           ),
         )
       ),
+      themeMode: ThemeMode.system, // this is the default theme mode
       home: const Expenses(),
     ),
   );
