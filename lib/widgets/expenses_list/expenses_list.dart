@@ -25,6 +25,12 @@ class ExpenseList extends StatelessWidget{
       // Here we add dismissible to make the items swipe to delete
       itemBuilder: (ctx, index) => Dismissible(
         key: ValueKey(expenses[index]), // to make sure correct data that been deleted. we use this with dissmissible
+        background: Container(
+          color: Theme.of(context).colorScheme.error.withOpacity(0.7),
+          margin: EdgeInsets.symmetric(
+            horizontal: Theme.of(context).cardTheme.margin!.horizontal,
+          ),
+        ),
         onDismissed: (direction){
           onRemoveExpense(expenses[index]);
         },
