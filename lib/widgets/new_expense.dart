@@ -136,37 +136,62 @@ class _NewExpenseState extends State<NewExpense>{
                   label: Text('Title'),
                   ),
                 ),
-              Row(
-                children: [
-                  Expanded( // we use expanded to avoid confusions, this take the sapace as they can
-                    child: TextField(
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        prefixText: '\$ ',
-                        label: Text('Amount'),
-                      ),
-                    ),
-                  ),
-                  
-                  const SizedBox(width: 16,),
-                  Expanded( // because we add row inside a row
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(_selectedDate == null ? 'No date selected' : formatter.format(_selectedDate!)), // we use "!" to force dart that this wont be null
-                        IconButton(
-                          onPressed: _presentDatePicker, 
-                          icon: const Icon(
-                            Icons.calendar_month_rounded
+              if(width >= 600)
+                Row(
+                  children: [
+                    DropdownButton( // we can't add controller to the drop down menus
+                      value: _selectedCategory,
+                      items: Category.values.map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(
+                            category.name.toUpperCase(),
                           ),
                         ),
-                      ],
+                      ).toList(), 
+                      onChanged:(value){
+                        if(value == null){
+                          return;
+                        }
+                        setState((){
+                          _selectedCategory = value;
+                        });
+                      },
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                )
+              else
+                Row(
+                  children: [
+                    Expanded( // we use expanded to avoid confusions, this take the sapace as they can
+                      child: TextField(
+                        controller: _amountController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          prefixText: '\$ ',
+                          label: Text('Amount'),
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(width: 16,),
+                    Expanded( // because we add row inside a row
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(_selectedDate == null ? 'No date selected' : formatter.format(_selectedDate!)), // we use "!" to force dart that this wont be null
+                          IconButton(
+                            onPressed: _presentDatePicker, 
+                            icon: const Icon(
+                              Icons.calendar_month_rounded
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               const SizedBox(height: 16,),
               Row(
                children: [
