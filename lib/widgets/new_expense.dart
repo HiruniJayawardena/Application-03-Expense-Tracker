@@ -88,10 +88,11 @@ class _NewExpenseState extends State<NewExpense>{
   Widget build(BuildContext context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
     return LayoutBuilder(builder: (ctx, constraint){
-      print(constraint.minHeight);
-      print(constraint.maxHeight);
-      print(constraint.minWidth);
-      print(constraint.maxWidth);
+      final width = constraint.maxWidth;
+      // print(constraint.minHeight);
+      // print(constraint.maxHeight);
+      // print(constraint.minWidth);
+      // print(constraint.maxWidth);
       return SizedBox(
       height: double.infinity,
       child: SingleChildScrollView(
@@ -99,14 +100,42 @@ class _NewExpenseState extends State<NewExpense>{
           padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
           child: Column( // we don't use ListView because we don't need to scroll, generate content dynamically
             children: [
-              TextField(
-                // onChanged: _saveTitleInput,
-                controller: _titleController, // for multiple fields we need multiple controllers
-                maxLength: 50,
-                decoration: const InputDecoration(
+              if(width >= 600) // important no curly braces
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _titleController, 
+                        maxLength: 50,
+                        decoration: const InputDecoration(
+                          label: Text('Title'),
+                        ),
+                      ),
+                    ),
+                  
+                  const SizedBox(width: 24,),
+                  Expanded( 
+                    child: TextField(
+                      controller: _amountController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        prefixText: '\$ ',
+                        label: Text('Amount'),
+                      ),
+                    ),
+                  ),
+
+                ],)
+              else
+                TextField(
+                  // onChanged: _saveTitleInput,
+                  controller: _titleController, // for multiple fields we need multiple controllers
+                  maxLength: 50,
+                  decoration: const InputDecoration(
                   label: Text('Title'),
+                  ),
                 ),
-              ),
               Row(
                 children: [
                   Expanded( // we use expanded to avoid confusions, this take the sapace as they can
