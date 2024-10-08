@@ -87,85 +87,88 @@ class _NewExpenseState extends State<NewExpense>{
   @override
   Widget build(BuildContext context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
-    return SingleChildScrollView(
-      child: Padding( 
-        padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
-        child: Column( // we don't use ListView because we don't need to scroll, generate content dynamically
-          children: [
-            TextField(
-              // onChanged: _saveTitleInput,
-              controller: _titleController, // for multiple fields we need multiple controllers
-              maxLength: 50,
-              decoration: const InputDecoration(
-                label: Text('Title'),
+    return SizedBox(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        child: Padding( 
+          padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
+          child: Column( // we don't use ListView because we don't need to scroll, generate content dynamically
+            children: [
+              TextField(
+                // onChanged: _saveTitleInput,
+                controller: _titleController, // for multiple fields we need multiple controllers
+                maxLength: 50,
+                decoration: const InputDecoration(
+                  label: Text('Title'),
+                ),
               ),
-            ),
-            Row(
-              children: [
-                Expanded( // we use expanded to avoid confusions, this take the sapace as they can
-                  child: TextField(
-                    controller: _amountController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      prefixText: '\$ ',
-                      label: Text('Amount'),
+              Row(
+                children: [
+                  Expanded( // we use expanded to avoid confusions, this take the sapace as they can
+                    child: TextField(
+                      controller: _amountController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        prefixText: '\$ ',
+                        label: Text('Amount'),
+                      ),
                     ),
                   ),
-                ),
-                
-                const SizedBox(width: 16,),
-                Expanded( // because we add row inside a row
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(_selectedDate == null ? 'No date selected' : formatter.format(_selectedDate!)), // we use "!" to force dart that this wont be null
-                      IconButton(
-                        onPressed: _presentDatePicker, 
-                        icon: const Icon(
-                          Icons.calendar_month_rounded
+                  
+                  const SizedBox(width: 16,),
+                  Expanded( // because we add row inside a row
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(_selectedDate == null ? 'No date selected' : formatter.format(_selectedDate!)), // we use "!" to force dart that this wont be null
+                        IconButton(
+                          onPressed: _presentDatePicker, 
+                          icon: const Icon(
+                            Icons.calendar_month_rounded
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 16,),
+              Row(
+               children: [
+                DropdownButton( // we can't add controller to the drop down menus
+                  value: _selectedCategory,
+                  items: Category.values.map(
+                    (category) => DropdownMenuItem(
+                      value: category,
+                      child: Text(
+                        category.name.toUpperCase(),
+                      ),),
+                  ).toList(), 
+                  onChanged:(value){
+                    if(value == null){
+                      return;
+                    }
+                    setState((){
+                      _selectedCategory = value;
+                    });
+                  },
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: _submitExpenseData, 
+                  child: const Text('Save Expense'),
                 ),
               ],
-            ),
-            const SizedBox(height: 16,),
-            Row(
-             children: [
-              DropdownButton( // we can't add controller to the drop down menus
-                value: _selectedCategory,
-                items: Category.values.map(
-                  (category) => DropdownMenuItem(
-                    value: category,
-                    child: Text(
-                      category.name.toUpperCase(),
-                    ),),
-                ).toList(), 
-                onChanged:(value){
-                  if(value == null){
-                    return;
-                  }
-                  setState((){
-                    _selectedCategory = value;
-                  });
-                },
-              ),
-              const Spacer(),
-              TextButton(
-                onPressed: (){
-                  Navigator.pop(context);
-                },
-                child: const Text('Cancel'),
-              ),
-              ElevatedButton(
-                onPressed: _submitExpenseData, 
-                child: const Text('Save Expense'),
               ),
             ],
-            ),
-          ],
+          ),
         ),
       ),
     );
