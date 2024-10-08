@@ -87,7 +87,12 @@ class _NewExpenseState extends State<NewExpense>{
   @override
   Widget build(BuildContext context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
-    return SizedBox(
+    return LayoutBuilder(builder: (ctx, constraint){
+      print(constraint.minHeight);
+      print(constraint.maxHeight);
+      print(constraint.minWidth);
+      print(constraint.maxWidth);
+      return SizedBox(
       height: double.infinity,
       child: SingleChildScrollView(
         child: Padding( 
@@ -172,5 +177,6 @@ class _NewExpenseState extends State<NewExpense>{
         ),
       ),
     );
+    });
   }
 }
